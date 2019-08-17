@@ -99,12 +99,19 @@ void BigCrossFinder::BigCross2(const vector<vector<int>>& matrix, BigCrossResult
 {
     int matrixDimensionSize = matrix.size();
 
+    //Initialize the result and use it to keep track of the biggest cross data.
+	//Use -1 so if we won't find any cross we will know that there are no crosses.
+	o_result.crossCenter.i = -1;
+	o_result.crossCenter.j = -1;
+	o_result.branchLength = -1;
+
+	// Create 4 data structures in the size of O(n^2) each
     vector<vector<int>> left(matrixDimensionSize, vector<int>(matrixDimensionSize));
     vector<vector<int>> right(matrixDimensionSize, vector<int>(matrixDimensionSize));
     vector<vector<int>> top(matrixDimensionSize, vector<int>(matrixDimensionSize));
     vector<vector<int>> bottom(matrixDimensionSize, vector<int>(matrixDimensionSize));
 
-    // initialize all four matrices
+    // initialize all four matrices O(n)
     for (int i = 0; i < matrixDimensionSize; i++) 
     { 
         // initialize first row of top 
@@ -120,7 +127,7 @@ void BigCrossFinder::BigCross2(const vector<vector<int>>& matrix, BigCrossResult
         right[i][matrixDimensionSize - 1] = matrix[i][matrixDimensionSize - 1]; 
     } 
   
-    // fill the indexes of all four matrices 
+    // fill the indexes of all four matrices O(n^2)
     for (int i = 0; i < matrixDimensionSize; i++) 
     { 
         for (int j = 1; j < matrixDimensionSize; j++) 
@@ -174,7 +181,8 @@ void BigCrossFinder::BigCross2(const vector<vector<int>>& matrix, BigCrossResult
     } 
   
     int longestBranchLength = 0; 
-  
+  	
+  	// O(n^2) 
     for (int i = 0; i < matrixDimensionSize; i++) 
     { 
         for (int j = 0; j < matrixDimensionSize; j++) 
@@ -195,4 +203,6 @@ void BigCrossFinder::BigCross2(const vector<vector<int>>& matrix, BigCrossResult
             }
         } 
     }
+
+    // the time complexity of the function is 2*O(n^2) + O(n) = O(n^2)
 }
