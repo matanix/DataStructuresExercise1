@@ -97,18 +97,14 @@ Time efficiency: O(m^2) = O(n)
 Use of data structure with size n^2 **/
 void BigCrossFinder::BigCross2(const vector<vector<int>>& matrix, BigCrossResult &o_result)
 {
-	// left[j][j], right[i][j], top[i][j] and 
-    // bottom[i][j] store maximum number of 
-    // consecutive 1's present to the left, 
-    // right, top and bottom of Fmat[i][j] including 
-    // cell(i, j) respectively 
     int matrixDimensionSize = matrix.size();
+
     vector<vector<int>> left(matrixDimensionSize, vector<int>(matrixDimensionSize));
     vector<vector<int>> right(matrixDimensionSize, vector<int>(matrixDimensionSize));
     vector<vector<int>> top(matrixDimensionSize, vector<int>(matrixDimensionSize));
     vector<vector<int>> bottom(matrixDimensionSize, vector<int>(matrixDimensionSize));
 
-    // initialize above four matrix 
+    // initialize all four matrices
     for (int i = 0; i < matrixDimensionSize; i++) 
     { 
         // initialize first row of top 
@@ -124,12 +120,12 @@ void BigCrossFinder::BigCross2(const vector<vector<int>>& matrix, BigCrossResult
         right[i][matrixDimensionSize - 1] = matrix[i][matrixDimensionSize - 1]; 
     } 
   
-    // fill all cells of above four matrix 
+    // fill the indexes of all four matrices 
     for (int i = 0; i < matrixDimensionSize; i++) 
     { 
         for (int j = 1; j < matrixDimensionSize; j++) 
         { 
-            // calculate left matrix (filled left to right) 
+            // fill left matrix, from left to right 
             if (matrix[i][j] == 1)
             {
             	left[i][j] = left[i][j - 1] + 1; 
@@ -139,7 +135,7 @@ void BigCrossFinder::BigCross2(const vector<vector<int>>& matrix, BigCrossResult
                 left[i][j] = 0; 
             }
   
-            // calculate top matrix 
+            // fill top matrix 
             if (matrix[j][i] == 1)
             {
                 top[j][i] = top[j - 1][i] + 1; 
@@ -149,8 +145,7 @@ void BigCrossFinder::BigCross2(const vector<vector<int>>& matrix, BigCrossResult
                 top[j][i] = 0; 
             }
   
-            // calculate new value of j to calculate 
-            // value of bottom(i, j) and right(i, j) 
+            // use j from end to start to fill the value of bottom(i, j) and right(i, j)
             j = matrixDimensionSize - 1 - j; 
   
             // calculate bottom matrix 
@@ -180,7 +175,6 @@ void BigCrossFinder::BigCross2(const vector<vector<int>>& matrix, BigCrossResult
   
     int longestBranchLength = 0; 
   
-    // compute longest + 
     for (int i = 0; i < matrixDimensionSize; i++) 
     { 
         for (int j = 0; j < matrixDimensionSize; j++) 
