@@ -60,7 +60,7 @@ void PrintResult(const BigCrossResult &bigCrossResult)
 	cout << "\n\n";
 }
 
-void main()
+int main()
 {
 	//15x15 Matrix
 	const vector<vector<int>> constMatrix = {{1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1},
@@ -105,6 +105,8 @@ void main()
 
 	cout << "Finding biggest cross using BigCross2 on the following random matrix:\n";
 	PrintMatrix(randomMatrix);
-	bigCrossFinder.BigCross1(randomMatrix, result);
+	bigCrossFinder.BigCross2(randomMatrix, result);
 	PrintResult(result);
+
+	return 1;
 }

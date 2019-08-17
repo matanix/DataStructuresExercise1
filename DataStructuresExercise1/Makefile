@@ -1,0 +1,1 @@
+g++ -g -gdwarf-2 BigCrossFinder.cpp main.cpp -o a.out 
