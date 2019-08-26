@@ -1,0 +1,1 @@
+g++ -g -gdwarf-2 Main.cpp -o exe2.out 
