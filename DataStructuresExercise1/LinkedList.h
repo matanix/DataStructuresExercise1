@@ -4,11 +4,11 @@ template <typename T>
 class Node
 {
 public:
-	explicit Node(T& value, T* next = nullptr)
+	explicit Node(T value, Node<T>* next = nullptr)
 		: m_value(value), m_next(next)
 	{}
 
-	bool SetNext(T* next)
+	bool SetNext(Node<T>* next)
 	{
 		if (next == nullptr)
 		{
@@ -19,12 +19,12 @@ public:
 		return true;
 	}
 
-	T* GetNext()
+	Node<T>* GetNext()
 	{
 		return m_next;
 	}
 
-	T& GetValue()
+	T GetValue()
 	{
 		return m_value;
 	}
@@ -33,34 +33,35 @@ public:
 	
 private:
 
-	T& m_value;
-	T* m_next = nullptr;
+	T m_value;
+	Node<T>* m_next = nullptr;
 };
 
 template <typename T>
 class LinkedList
 {
 public:
-	LinkedList(T* head)
+	LinkedList(Node<T>* head)
 		: m_head(head)
 	{}
 
 	LinkedList() = default;
 
-	bool AddFront(T* node)
+	bool AddFront(Node<T>* node)
 	{
 		if (node == nullptr)
 		{
 			return false;
 		}
 
-		node->next = m_head;
+		node->SetNext(m_head);
 		m_head = node;
+		m_size++;
 
 		return true;
 	}
 
-	bool AddLast(T* node)
+	bool AddLast(Node<T>* node)
 	{
 		if (node == nullptr)
 		{
@@ -74,7 +75,8 @@ public:
 			temp = temp->next;
 		}
 
-		temp->next = node;
+		temp->SetNext(node);
+		m_size++;
 
 		return true;
 	}
@@ -84,7 +86,7 @@ public:
 		Node<T>* temp = m_head;
 		int i = 0;
 
-		for (; i < index || temp != nullptr;
+		for (; i < index && temp != nullptr;
 			 ++i, temp = temp->GetNext());
 
 		return temp;
@@ -97,13 +99,20 @@ public:
 			return false;
 		}
 
-		m_head = m_head->next;
+		m_head = m_head->GetNext();
+		m_size--;
 
 		return true;
+	}
+
+	int GetSize()
+	{
+		return m_size;
 	}
 
 	~LinkedList() = default;
 	
 private:
 	Node<T>* m_head = nullptr;
+	int m_size = 0;
 };

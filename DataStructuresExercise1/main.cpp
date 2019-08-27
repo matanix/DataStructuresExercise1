@@ -1,112 +1,73 @@
 #include <iostream>
-#include "BigCrossFinder.h"
-#include <ctime>
+#include "Game.h"
+
 using namespace std;
 
-/* Sizes and matrixes */
-constexpr int CONSTANT_TEST_MATRIX_SIZE = 15;
-constexpr int RANDOM_TEST_MATRIX_SIZE = 50;
-
-void PrintMatrix(const vector<vector<int>>& matrix)
+void GetInput(int& k, int& m, int& n)
 {
-	for (int i = 0; i < matrix.size(); i++)
-	{
-		for (int j = 0; j < matrix[i].size(); j++)
-		{
-			cout << matrix[i][j] << ' ';
-		}
-		cout << '\n';
-	}
+	cout << "Enter height of the first tower: k\n";
+	cin >> k;
+	cout << "Enter height of the second tower: m\n";
+	cin >> m;
+	cout << "Enter height of the third tower: n\n";
+	cin >> n;
 }
 
-int GenerateBinary()
+bool BuildStack(Stack<int>& stackToBuild, int size)
 {
-	return rand() % 2;
-}
-
-void GetRandomMatrix(vector<vector<int>>& matrix)
-{
-	//Initialize SRAND with time seed
-	srand(time(NULL));
-
-	//Fill the matrix with random values;
-	for (int i = 0; i < matrix.size(); i++)
+	for (int i = 1; i <= size; i++)
 	{
-		for (int j = 0; j < matrix[i].size(); j++)
+		if (stackToBuild.Push(i) == false)
 		{
-			matrix[i][j] = GenerateBinary();
+			return false;
 		}
 	}
+
+	return true;
 }
 
-void PrintResult(const BigCrossResult &bigCrossResult)
+int main(int argc, char const *argv[])
 {
-	cout << "\nRESULT: \n";
-	if (bigCrossResult.crossCenter.i == -1)
+	int k, m, n = 0;
+	GetInput(k, m, n);
+
+	if (k == 0 && m == 0 && n == 0)
 	{
-		cout << "There are no crosses at all";
+		cout << "Must have at least 1 cube to play with";
+		return -1;
 	}
-	else
+
+	if (k < 0 || m < 0 || n < 0)
 	{
-		cout << "The biggest cross is at: (" << (bigCrossResult.crossCenter.i + 1) << ","
-											 << (bigCrossResult.crossCenter.j + 1) << ") \n";
-
-		cout << "It's branch length is: " << bigCrossResult.branchLength << '\n';
+		cout << "Negative values aren't legal";
+		return -1;
 	}
-	
-	cout << '\n';
-	cout << "--------------------------------------- " << '\n';
-	cout << "--------------------------------------- ";
-	cout << "\n\n";
-}
 
-int main()
-{
-	//15x15 Matrix
-	const vector<vector<int>> constMatrix = {{1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1},
-											 {0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1},
-											 {1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0},
-											 {1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-											 {0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1},
-											 {1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1},
-											 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-											 {1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1},
-											 {0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0},
-											 {1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0},
-											 {1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1},
-											 {1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0},
-											 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-											 {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-											 {1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1}};
 
-	//50x50 Random matrix
-	vector<vector<int>> randomMatrix(RANDOM_TEST_MATRIX_SIZE, vector<int>(RANDOM_TEST_MATRIX_SIZE));
-	GetRandomMatrix(randomMatrix);
-	
-	BigCrossFinder bigCrossFinder;
-	BigCrossResult result;
+	Stack<int> firstTower;
+	Stack<int> secondTower;
+	Stack<int> thirdTower;
 
-	//Use BigCross1 on both matrixes.
-	cout << "Finding biggest cross using BigCross1 on the following constant matrix:\n";
-	PrintMatrix(constMatrix);
-	bigCrossFinder.BigCross1(constMatrix, result);
-	PrintResult(result);
+	if (BuildStack(firstTower, k) == false)
+	{
+		cout << "Failed to allocate and build first stack. Exiting\n";
+		return -1;
+	}
 
-	cout << "Finding biggest cross using BigCross1 on the following random matrix:\n";
-	PrintMatrix(randomMatrix);
-	bigCrossFinder.BigCross1(randomMatrix, result);
-	PrintResult(result);
+	if (BuildStack(secondTower, m) == false)
+	{
+		cout << "Failed to allocate and build second stack. Exiting\n";
+		return -1;
+	}
 
-	//Use BigCross2 on both matrixes.
-	cout << "Finding the biggest cross using BigCross2 on the following constant matrix:\n";
-	PrintMatrix(constMatrix);
-	bigCrossFinder.BigCross2(constMatrix, result);
-	PrintResult(result);
+	if (BuildStack(thirdTower, n) == false)
+	{
+		cout << "Failed to allocate and build third stack. Exiting\n";
+		return -1;
+	}
 
-	cout << "Finding biggest cross using BigCross2 on the following random matrix:\n";
-	PrintMatrix(randomMatrix);
-	bigCrossFinder.BigCross2(randomMatrix, result);
-	PrintResult(result);
+	Game game(firstTower, secondTower, thirdTower);
+	game.Play();
 
-	return 1;
+	return 0;
 }
