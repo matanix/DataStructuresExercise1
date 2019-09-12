@@ -1,9 +1,6 @@
 #pragma once
 
 #include "MaxHeap.h"
-#include <iostream>
-
-using namespace std;
 
 //A templatic AuctionHeap
 //Supports insert at O(n) (using max heap)
