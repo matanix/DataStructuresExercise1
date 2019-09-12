@@ -70,7 +70,7 @@ public:
 
 	bool GetLeftSonOf(unsigned int index, unsigned int& o_val, unsigned int& o_index)
 	{
-		if (getLeftSonIndex(index) >= m_size)
+		if (isIndexInHeap(getLeftSonIndex(index)) == false)
 		{
 			return false;
 		}
@@ -83,7 +83,7 @@ public:
 
 	bool GetRightSonOf(unsigned int index, unsigned int& o_val, unsigned int& o_index)
 	{
-		if (getRightSonIndex(index) >= m_size)
+		if (isIndexInHeap(getRightSonIndex(index)) == false)
 		{
 			return false;
 		}
