@@ -52,7 +52,7 @@ public:
 
 		m_bids.GetMax(maxVal);
 
-		m_tempBids.Insert(maxVal, 0);
+		m_tempBids.Insert(maxVal, MaxHeap<MAX_SIZE>::ROOT);
 
 		//Runs K-1 times
 		for (unsigned int i = 0; i < place - 1; i++)
