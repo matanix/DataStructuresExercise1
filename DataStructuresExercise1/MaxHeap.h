@@ -106,7 +106,7 @@ public:
 
 	void Clear()
 	{
-		m_size = 0;
+		m_size = EMPTY;
 	}
 
 	~MaxHeap() = default;
