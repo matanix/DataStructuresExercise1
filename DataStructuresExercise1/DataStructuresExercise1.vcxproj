@@ -19,12 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="LinkedList.h" />
-    <ClInclude Include="Stack.h" />
+    <ClInclude Include="AuctionHeap.h" />
+    <ClInclude Include="MaxHeap.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
