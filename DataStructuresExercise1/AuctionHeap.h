@@ -13,6 +13,8 @@ public:
 	AuctionHeap() = default;
 	~AuctionHeap() = default;
 
+	static constexpr unsigned int MIN_PLACE = 1;
+
 	bool Insert(unsigned int value)
 	{
 		return m_bids.Insert(value);
@@ -35,7 +37,7 @@ public:
 	//The result is 4k log(k) + k = klog(k)
 	bool GetBidByPlace(unsigned int place, unsigned int& o_value)
 	{
-		if (place < 1)
+		if (place < MIN_PLACE)
 		{
 			return false;
 		}
