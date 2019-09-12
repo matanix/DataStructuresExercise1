@@ -20,7 +20,7 @@ public:
 	static constexpr unsigned int EMPTY = 0;
 
 	//Constructor that initializes the heap inner array.
-	explicit MaxHeap() : m_size(0)
+	explicit MaxHeap() : m_size(EMPTY)
 	{}
 
 	bool Insert(unsigned int value, unsigned int index = 0)
