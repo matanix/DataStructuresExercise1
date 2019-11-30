@@ -56,6 +56,9 @@ struct Vertex
 
 	T& value;
 	LinkedList<T> adjList;
+	bool visited = false;
+	size_t entry_number = 0;
+	size_t finish_number = 0;
 };
 
 template<typename T>
