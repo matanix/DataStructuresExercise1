@@ -6,6 +6,7 @@ using namespace std;
 
 int main()
 {
+	cout << "Calculating levenshteinDistance:\n";
 	LevenshteinDistance levenshteinDistance;
 	const char* start = "kitten";
 	const char* end = "sitting";

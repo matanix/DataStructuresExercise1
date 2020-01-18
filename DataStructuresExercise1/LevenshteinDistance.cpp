@@ -74,5 +74,38 @@ int LevenshteinDistance::innerDynamic(const char* start, int startLen, const cha
 
 int LevenshteinDistance::iterative(const char* start, const char* end)
 {
-	return 0;
+	int startLen = int(strlen(start));
+	int endLen = int(strlen(end));
+	int dist[MAX_SIZE][MAX_SIZE] = { 0 };
+	int sameLetter = 0;
+
+	for (size_t i = 0; i <= startLen; i++)
+	{
+		dist[0][i] = i;
+	}
+
+	for (size_t j = 0; j <= endLen; j++)
+	{
+		dist[j][0] = j;
+	}
+
+	for (size_t j = 1; j <= startLen; j++)
+	{
+		for (size_t i = 1; i <= endLen; i++)
+		{
+			if (start[i - 1] == end[j - 1])
+			{
+				sameLetter = 0;
+			}
+			else
+			{
+				sameLetter = 1;
+			}
+
+			int temp = std::min<int>((dist[i - 1][j] + 1), (dist[i][j - 1] + 1));
+			dist[i][j] = std::min<int>(temp, dist[i - 1][j - 1] + sameLetter) ;
+		}
+	}
+
+	return dist[endLen][startLen];
 }
