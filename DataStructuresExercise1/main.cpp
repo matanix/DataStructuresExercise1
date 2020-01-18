@@ -1,55 +1,16 @@
+#include <string>
 #include <iostream>
-#include "AuctionHeap.h"
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
-
-static constexpr unsigned int MAX_AUCTION_HEAP_SIZE = 20;
+#include "LevenshteinDistance.h"
 
 using namespace std;
 
-int main(int argc, char const *argv[])
+int main()
 {
-	srand(static_cast<unsigned int>(time(nullptr)));
-	AuctionHeap<MAX_AUCTION_HEAP_SIZE> auctionHeap;
-	
-	for (int i = 0; i < MAX_AUCTION_HEAP_SIZE / 2; i++)
-	{
-		unsigned int randVal = rand() % 100 + 1;
-		auctionHeap.Insert(randVal);
-		cout << "Inserted " << randVal << " \n";
-	}
+	LevenshteinDistance levenshteinDistance;
+	const char* start = "kitten";
+	const char* end = "sitting";
+	cout << "recursive result (from " << start << " to " << end << ") is " << levenshteinDistance.recursive(start,end) << "\n";
+	cout << "dynamic result (from " << start << " to " << end << ") is " << levenshteinDistance.dynamic(start, end) << "\n";
+	cout << "iterative result (from " << start << " to " << end << ") is " << levenshteinDistance.iterative(start, end) << "\n";
 
-	unsigned int resultVal = 0;
-	auctionHeap.GetMax(resultVal);
-
-	cout << "Max is " << resultVal << " \n" ;
-
-	for (int place = 1; place <= MAX_AUCTION_HEAP_SIZE / 2; place++)
-	{
-		auctionHeap.GetBidByPlace(place, resultVal);
-
-		cout << "Val at place " << place << " is " << resultVal << " \n";
-	}
-
-	for (int i = 0; i < MAX_AUCTION_HEAP_SIZE; i++)
-	{
-		unsigned int randVal = rand() % 100 + 1;
-		auctionHeap.Insert(randVal);
-		cout << "Inserted " << randVal << " \n";
-	}
-
-	resultVal = 0;
-	auctionHeap.GetMax(resultVal);
-
-	cout << "Max is " << resultVal << " \n" ;
-
-	for (int place = 1; place <= MAX_AUCTION_HEAP_SIZE; place++)
-	{
-		auctionHeap.GetBidByPlace(place, resultVal);
-
-		cout << "Val at place " << place << " is " << resultVal << " \n";
-	}
-
-	return 0;
 }

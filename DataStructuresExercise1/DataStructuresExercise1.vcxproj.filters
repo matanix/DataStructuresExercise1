@@ -18,12 +18,12 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LevenshteinDistance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MaxHeap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AuctionHeap.h">
+    <ClInclude Include="LevenshteinDistance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
